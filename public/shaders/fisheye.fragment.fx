@@ -11,6 +11,11 @@ uniform sampler2D image;
 out vec4 FragColor;
 
 void main() {
-    // Color
-    FragColor = texture(image, model_uv);
+    vec2 uv = 2.0*model_uv-1.0;
+    float theta = atan(uv.y, uv.x);
+    float radius = pow(length(uv), 1.5);
+    uv.x = radius*cos(theta);
+    uv.y = radius*sin(theta);
+    uv = 0.5 * (uv + 1.0);
+    FragColor = texture(image, uv);
 }
