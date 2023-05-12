@@ -22,7 +22,8 @@ export default {
             materials: {},
             selected_texture: 'video',
             textures: {video: null, webcam: null},
-            start_stop: 'Stop'
+            start_stop: 'Stop',
+            time: 0
         }
     },
     methods: {
@@ -183,6 +184,11 @@ export default {
 
         // Animation function - called before each frame gets rendered
         this.scene.onBeforeRenderObservable.add(() => {
+
+            //Time
+            this.time += 0.03;
+            this.materials[this.filter].setFloat('time', this.time);
+
             if (this.filter !== rect.material.name) {
                 rect.material = this.materials[this.filter];
             }
